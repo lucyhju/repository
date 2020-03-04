@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.AdminDao">
+
+    <select id="queryAdminByName" resultType="com.example.demo.bean.Admin">
+        select id, username, password from admin_tb where username = #{username}
+    </select>
+
+    <select id="queryRoleIdByUsername" resultType="int">
+        select ar.role_id from admin_tb a
+        left join admin_role_tb ar on a.id = ar.admin_id
+        where a.username = #{username}
+    </select>
+
+    <select id="queryPermissionByRoleId" resultType="string">
+        select p.name from role_permission_tb rp
+        left join permission_tb p on rp.permission_id = p.id
+        where rp.role_id = #{id}
+    </select>
+</mapper>
